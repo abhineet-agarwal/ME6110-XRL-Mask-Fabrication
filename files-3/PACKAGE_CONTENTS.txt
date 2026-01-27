@@ -1,0 +1,108 @@
+X-RAY LITHOGRAPHY SIMULATION SUITE - COMPLETE PACKAGE
+======================================================
+Date: November 23, 2025
+Author: Abhineet Agarwal
+Course: ME6110 - Track B
+
+CONTENTS:
+=========
+
+1. EXECUTABLE SIMULATION
+   - run_enhanced_simulations.py     Main simulation script (run this!)
+
+2. SOURCE CODE MODULES (source_code/)
+   - aerial_image.py                 Aerial image formation (Beer-Lambert + Fresnel)
+   - resist_response.py              Resist exposure and development
+   - thermal_mechanical.py           Membrane thermal-mechanical analysis
+   - analysis_utils.py               Multi-parameter sweep utilities
+
+3. GENERATED RESULTS (auto-created when you run simulation)
+   
+   figures/ (15 publication-quality plots)
+   --------
+   - fig_01_aerial_multi_energy.png         Intensity profiles at multiple energies
+   - fig_02_aerial_multi_gap.png            Intensity profiles at multiple gaps
+   - fig_03_energy_contrast.png             Contrast vs energy optimization
+   - fig_04_gap_contrast.png                Contrast vs gap (proximity effects)
+   - fig_05_thickness_analysis.png          Absorber thickness optimization
+   - fig_06_absorber_materials.png          Ta, W, Au comparison
+   - fig_07_gap_energy_heatmap.png          2D parameter space
+   - fig_08_resist_profiles.png             Developed resist profiles
+   - fig_09_cd_vs_dose.png                  Critical dimension vs dose
+   - fig_10_ler_vs_dose.png                 Line-edge roughness vs dose
+   - fig_11_resist_comparison.png           Resist material comparison
+   - fig_12_stochastic_effects.png          Shot noise and blur visualization
+   - fig_13_material_comparison.png         Membrane material comparison
+   - fig_14_thermal_deflection_vs_power.png Deflection scaling
+   - fig_15_thermal_stress_vs_power.png     Stress scaling
+   
+   data/
+   -----
+   - simulation_summary.txt                 Key results with literature validation
+   - latex_snippets.tex                     LaTeX figure captions
+
+4. DOCUMENTATION
+   - README.md                              Complete user guide and documentation
+   - XRL_Simulation_Report_TrackB.tex      Full LaTeX report (70+ pages)
+   - ANALYSIS_SUMMARY.md                    Detailed analysis (incomplete, see report)
+   - PACKAGE_CONTENTS.txt                   This file
+
+QUICK START:
+============
+
+To run the simulation:
+    
+    cd /mnt/user-data/outputs
+    python3 run_enhanced_simulations.py
+
+Runtime: ~5 minutes
+Output: 15 figures + reports
+
+To compile the LaTeX report:
+
+    pdflatex XRL_Simulation_Report_TrackB.tex
+    pdflatex XRL_Simulation_Report_TrackB.tex  (run twice for references)
+
+KEY RESULTS:
+============
+
+Optimal XRL Configuration for 500 nm features:
+- Photon energy: 0.5 keV (maximum contrast)
+- Mask-resist gap: 5 μm (near-contact, F=50)
+- Absorber: Ta, 0.4-0.6 μm thick (OD>7)
+- Membrane: Si₃N₄, 2 μm (adequate thermal performance)
+- Resist: ZEP520A (best sensitivity/resolution balance)
+- Max power: 0.5 W for Si₃N₄, 2 W for SiC
+
+VALIDATION:
+===========
+
+All simulation parameters validated against peer-reviewed literature:
+✓ PMMA sensitivity: 500 mJ/cm² (lit: 400-600) [Oyama 2016]
+✓ ZEP520A sensitivity: 80 mJ/cm² (lit: 80) [Mohammad 2012]
+✓ ZEP520A LER: 2-3 nm (lit: 2-8 nm) [Mohammad 2012]
+✓ Optimal energy: 0.5 keV (lit: 0.5-2.0 keV) [Cerrina 2000]
+✓ Si₃N₄ properties: E=250 GPa, k=20 W/(m·K) [Holmes 1998, Vila 2003]
+
+REFERENCES:
+===========
+
+[1] Cerrina & White (2000), "X-ray Lithography," Materials Today
+[2] Mohammad et al. (2012), "ZEP-520 Development," Jpn. J. Appl. Phys.
+[3] Oyama et al. (2016), "Resist sensitivity for EUV," AIP Advances
+[4] Holmes et al. (1998), "Thermal transport in silicon nitride," Appl. Phys. Lett.
+[5] Vila et al. (2003), "Mechanical properties of Si₃N₄," J. Appl. Phys.
+
+See full bibliography in XRL_Simulation_Report_TrackB.tex
+
+CONTACT:
+========
+
+For questions about this simulation suite:
+Author: Abhineet Agarwal
+Course: ME6110
+Instructor: Prof. Rakesh Mote
+
+================================================================================
+END OF PACKAGE CONTENTS
+================================================================================

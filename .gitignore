@@ -1,0 +1,24 @@
+.DS_Store
+__pycache__/
+venv/
+*.tar.gz
+*.zip
+
+# Lecture slides
+1_Overview_merged.pdf
+1_Overview.pdf
+2_Optical_Lithography_Basics.pdf
+3_Resolution_Enhancement_Techniques.pdf
+4_EUV_X-ray_Lithography.pdf
+5_Multiple_Pattering.pdf
+6_E-Beam_Lithography.pdf
+7_FIB_Nanofab.pdf
+8_NIPL.pdf
+
+# Reference papers
+From Molecular Switches to Molecular motors.pdf
+How to Kill 2 Monopolies with 1 Tool.pdf
+Mach - Double Pattering.pdf
+maldonado2016.pdf
+s12036-017-9447-8 (1).pdf
+The Art of Building Small - From Molecular Switches to motors.pdf

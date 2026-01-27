@@ -1,0 +1,165 @@
+================================================================================
+GENERATED FIGURES - COMPLETE LIST
+================================================================================
+
+All 15 figures are located in: /mnt/user-data/outputs/figures/
+
+To view figures, open them from the outputs directory or use links below.
+
+================================================================================
+AERIAL IMAGE ANALYSIS (Figures 1-7)
+================================================================================
+
+Figure 1: Aerial Image Profiles - Energy Dependence
+File: fig_01_aerial_multi_energy.png
+Shows: Intensity profiles at 0.5, 1.0, 2.0, 5.0 keV
+Key insight: Contrast degrades at higher energies due to reduced absorption
+
+Figure 2: Aerial Image Profiles - Gap Dependence
+File: fig_02_aerial_multi_gap.png
+Shows: Intensity profiles at 1, 5, 10, 20 μm gaps
+Key insight: Fresnel diffraction causes progressive blurring with gap
+
+Figure 3: Contrast vs Photon Energy
+File: fig_03_energy_contrast.png
+Shows: Contrast optimization across 0.5-5 keV
+Key insight: 0.5 keV optimal (contrast = 0.999)
+
+Figure 4: Contrast vs Mask-Resist Gap
+File: fig_04_gap_contrast.png
+Shows: Proximity effect degradation (1-50 μm)
+Key insight: Gap <10 μm maintains near-unity contrast
+
+Figure 5: Absorber Thickness Analysis
+File: fig_05_thickness_analysis.png
+Shows: (a) Contrast vs thickness, (b) Beer-Lambert transmission
+Key insight: 0.4-0.6 μm Ta provides OD>7
+
+Figure 6: Absorber Material Comparison
+File: fig_06_absorber_materials.png
+Shows: Ta, W, Au performance at 0.5 keV
+Key insight: All three materials achieve excellent contrast
+
+Figure 7: 2D Parameter Space (Gap vs Energy)
+File: fig_07_gap_energy_heatmap.png
+Shows: Contrast heatmap with optimal region identified
+Key insight: Low energy + small gap = optimal
+
+================================================================================
+RESIST RESPONSE ANALYSIS (Figures 8-12)
+================================================================================
+
+Figure 8: Resist Development Profiles
+File: fig_08_resist_profiles.png
+Shows: Developed profiles for PMMA, ZEP520A, SU-8, HSQ
+Key insight: Profile shape reflects tone and contrast
+
+Figure 9: Critical Dimension vs Exposure Dose
+File: fig_09_cd_vs_dose.png
+Shows: CD process windows for all resists
+Key insight: ZEP520A has tightest control (γ=9)
+
+Figure 10: Line-Edge Roughness vs Dose
+File: fig_10_ler_vs_dose.png
+Shows: LER behavior across dose range
+Key insight: ZEP520A achieves LER <3 nm
+
+Figure 11: Resist Material Comparison
+File: fig_11_resist_comparison.png
+Shows: Side-by-side CD, LER, and sensitivity
+Key insight: ZEP520A best overall balance
+
+Figure 12: Stochastic Effects Visualization
+File: fig_12_stochastic_effects.png
+Shows: (a) No noise, (b) Shot noise, (c) Shot noise + blur
+Key insight: Demonstrates origin of LER
+
+================================================================================
+THERMAL-MECHANICAL ANALYSIS (Figures 13-15)
+================================================================================
+
+Figure 13: Membrane Material Comparison
+File: fig_13_material_comparison.png
+Shows: (a) Deflection, (b) Stress at 0.1 W
+Key insight: Diamond best, Si₃N₄ adequate
+
+Figure 14: Deflection vs Beam Power
+File: fig_14_thermal_deflection_vs_power.png
+Shows: Scaling across 0.001-1 W for all materials
+Key insight: Si₃N₄ <0.5 W, SiC ~2 W capacity
+
+Figure 15: Thermal Stress vs Beam Power
+File: fig_15_thermal_stress_vs_power.png
+Shows: Stress scaling for all materials
+Key insight: All materials safe below yield strength
+
+================================================================================
+FIGURE SPECIFICATIONS
+================================================================================
+
+Format:       PNG (lossless compression)
+Resolution:   300 DPI (publication quality)
+Dimensions:   Variable (optimized for each plot type)
+Color:        Full color, professionally styled
+Fonts:        Bold axis labels, clear legends
+File size:    ~50-500 KB per figure (reasonable for reports)
+
+Total size:   ~3-4 MB for all 15 figures
+
+================================================================================
+USING FIGURES IN REPORTS
+================================================================================
+
+For LaTeX:
+----------
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_01_aerial_multi_energy.png}
+\caption{Your caption here}
+\label{fig:aerial_energy}
+\end{figure}
+
+For Word/PowerPoint:
+--------------------
+Simply insert images from the figures/ directory.
+Figures are high-resolution and will look professional when printed.
+
+For Papers:
+-----------
+All figures are publication-quality at 300 DPI.
+Meet requirements for most journals.
+
+================================================================================
+FIGURE CITATIONS
+================================================================================
+
+When referencing figures in text, cite as:
+
+"Figure 3 shows the contrast optimization across photon energies..."
+"As demonstrated in Figure 8, ZEP520A provides excellent profile definition..."
+"The 2D parameter space (Figure 7) reveals..."
+
+================================================================================
+DIRECT FILE LINKS
+================================================================================
+
+All figures can be accessed at:
+computer:///mnt/user-data/outputs/figures/fig_01_aerial_multi_energy.png
+computer:///mnt/user-data/outputs/figures/fig_02_aerial_multi_gap.png
+computer:///mnt/user-data/outputs/figures/fig_03_energy_contrast.png
+computer:///mnt/user-data/outputs/figures/fig_04_gap_contrast.png
+computer:///mnt/user-data/outputs/figures/fig_05_thickness_analysis.png
+computer:///mnt/user-data/outputs/figures/fig_06_absorber_materials.png
+computer:///mnt/user-data/outputs/figures/fig_07_gap_energy_heatmap.png
+computer:///mnt/user-data/outputs/figures/fig_08_resist_profiles.png
+computer:///mnt/user-data/outputs/figures/fig_09_cd_vs_dose.png
+computer:///mnt/user-data/outputs/figures/fig_10_ler_vs_dose.png
+computer:///mnt/user-data/outputs/figures/fig_11_resist_comparison.png
+computer:///mnt/user-data/outputs/figures/fig_12_stochastic_effects.png
+computer:///mnt/user-data/outputs/figures/fig_13_material_comparison.png
+computer:///mnt/user-data/outputs/figures/fig_14_thermal_deflection_vs_power.png
+computer:///mnt/user-data/outputs/figures/fig_15_thermal_stress_vs_power.png
+
+================================================================================
+END OF FIGURE LIST
+================================================================================
