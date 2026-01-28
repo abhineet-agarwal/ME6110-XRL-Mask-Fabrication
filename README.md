@@ -109,4 +109,6 @@ MIT
 
 ## Author
 
-Abhineet Agarwal -- ME6110 Nanomanufacturing Processes, IIT Bombay (Autumn 2025)
+Abhineet Agarwal
+Dept of Electrical Engineering
+IIT Bombay
