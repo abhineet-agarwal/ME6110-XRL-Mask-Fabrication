@@ -1,47 +1,112 @@
-# ME6110: X-ray Mask Fabrication and XRL Feasibility Study
+# XRL Simulator -- X-ray Lithography Process Modeling
 
-**Course:** ME6110: Nanomanufacturing Processes (Autumn 2025, IIT Bombay)
-**Instructor:** Prof. Rakesh Mote
-**Student:** Abhineet Agarwal (22B1219)
+A tutorial-style Python package for simulating X-ray lithography (XRL) mask
+transmission, aerial image formation, resist exposure, and thermal-mechanical
+behaviour.  Developed as part of the ME6110 Nanomanufacturing course at
+IIT Bombay.
 
----
+## What is X-ray Lithography?
 
-## Overview
+X-ray lithography uses short-wavelength radiation (0.5--5 keV) to transfer
+sub-micron patterns from a mask to a photoresist.  The mask consists of a
+high-Z absorber (Ta, W, or Au) patterned on a thin low-Z membrane (Si3N4 or
+SiC).  The short wavelength minimises diffraction, enabling high resolution
+at practical mask-to-resist gaps.
 
-High-precision X-ray mask fabrication for satellite imaging applications, in collaboration with ISRO. The project covers:
+## Installation
 
-1. **Mask Fabrication** — Designing and fabricating tantalum X-ray masks using laser micromachining, EDM, and etching techniques to achieve sub-10 µm pattern accuracy
-2. **XRL Simulation** — Comprehensive simulation of X-ray lithography (XRL) processes including aerial image formation, resist response modeling, and thermal-mechanical analysis
-3. **Commercialization** — Exploring the feasibility of X-ray lithography for CMOS fabrication
+```bash
+# Clone the repository
+git clone https://github.com/abhineet-agarwal/ME6110-XRL-Mask-Fabrication.git
+cd ME6110-XRL-Mask-Fabrication
 
-## Simulations
-
-Python-based simulation suite covering:
-- **Aerial image analysis** — Multi-energy and multi-gap diffraction modeling for X-ray proximity lithography
-- **Resist response** — CD vs dose, line-edge roughness, stochastic effects, resist profile simulation
-- **Thermal-mechanical** — Mask deflection and stress analysis under X-ray beam power loading
-- **Absorber material comparison** — Evaluating different mask absorber materials
-
-## Repository Structure
-
-```
-ME6110-Abhineet/              # Report, presentation, plagiarism check
-xrl_project/                  # Project simulation code (v1)
-xrl_project_complete_FINAL/   # Final simulation package
-  simulations/                # Python simulation modules
-  layouts/                    # GDS test pattern generation
-  docs/                       # Beamtime proposal, integration roadmap
-  data/                       # Simulation output data
-
-High_Precision_X_Ray_Mask_../ # Figures, LaTeX source, fabricated mask images
-aerial-image.py               # Aerial image simulation (standalone)
-resist_response.py            # Resist response simulation (standalone)
-CAM-20x20_v1_sitare-1.DXF    # CAD mask layout (DXF)
-CAM-20x20_v1_sitare-1.STEP   # CAD mask layout (STEP)
+# Install in editable mode
+pip install -e .
 ```
 
-## Tools
+**Dependencies:** numpy, scipy, matplotlib (see `requirements.txt`).
 
-- **Python** (NumPy, SciPy, Matplotlib) — Simulation and analysis
-- **GDSpy** — GDSII layout generation for test patterns
-- **LaTeX** — Report typesetting
+## Quick Start
+
+```python
+from xrl import XRayMask, AerialImageSimulator
+
+mask = XRayMask(absorber_material='Ta', feature_size=0.5, pitch=1.0)
+sim  = AerialImageSimulator(mask, gap=10.0)
+x, intensity = sim.compute_aerial_image(energy_kev=1.5)
+
+print(f"Contrast: {sim.calculate_contrast(x, intensity):.3f}")
+```
+
+## Tutorials
+
+The `examples/` directory contains five numbered tutorials that walk through
+the full simulation workflow:
+
+| Script | Topic | Physics |
+|--------|-------|---------|
+| `01_aerial_image.py` | Mask transmission & contrast | Beer-Lambert, Fresnel diffraction |
+| `02_resist_response.py` | Exposure & development | Dose, shot noise, CD/LER |
+| `03_thermal_analysis.py` | Membrane mechanics | Thermal stress, deflection |
+| `04_parameter_sweep.py` | Parameter space exploration | Energy x gap heatmap |
+| `05_full_simulation.py` | End-to-end pipeline | Complete workflow |
+
+Run any tutorial with:
+
+```bash
+python examples/01_aerial_image.py
+```
+
+## Package Structure
+
+```
+xrl/
+  __init__.py        # Public API
+  materials.py       # Material databases (absorbers, resists, membranes)
+  aerial_image.py    # Mask transmission + Fresnel propagation
+  resist.py          # Exposure, development, CD/LER
+  thermal.py         # Membrane deflection + thermal stress
+  plotting.py        # All visualization (separated from physics)
+  config.py          # SimulationConfig dataclass + JSON/YAML loader
+```
+
+## API Overview
+
+| Class / Function | Module | Description |
+|------------------|--------|-------------|
+| `XRayMask` | `aerial_image` | Mask geometry and Beer-Lambert transmission |
+| `AerialImageSimulator` | `aerial_image` | Fresnel propagation to resist plane |
+| `ResistExposureModel` | `resist` | Dose, noise, development, CD/LER |
+| `MembraneMechanics` | `thermal` | Plate-theory deflection and stress |
+| `ThermalAnalysis` | `thermal` | Steady-state temperature and time constant |
+| `SimulationConfig` | `config` | Serialisable parameter set |
+
+## Physics Background
+
+For detailed derivations and validation against literature, see the project
+report: [`ME6110-Abhineet/ME6110_report.pdf`](ME6110-Abhineet/ME6110_report.pdf).
+
+## Project Context
+
+This repository also contains materials from the full ME6110 project:
+
+- **`fabrication/`** -- CAD files (DXF, STEP) and manufacturing proposal for
+  the tantalum X-ray mask fabricated in collaboration with ISRO.
+- **`ME6110-Abhineet/`** -- Final report, presentation slides, and plagiarism
+  check.
+- **`ME6110_projects.pdf`** -- Problem statement.
+
+## Running Tests
+
+```bash
+pip install pytest
+pytest tests/ -v
+```
+
+## License
+
+MIT
+
+## Author
+
+Abhineet Agarwal -- ME6110 Nanomanufacturing Processes, IIT Bombay (Autumn 2025)

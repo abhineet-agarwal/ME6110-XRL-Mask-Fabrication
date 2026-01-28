@@ -1,8 +1,40 @@
 .DS_Store
 __pycache__/
+*.pyc
 venv/
+.venv/
+*.egg-info/
+dist/
+build/
 *.tar.gz
 *.zip
+
+# Generated output
+output/
+data/
+last_simulation.json
+
+# Old project directories (migrated into xrl/)
+xrl_project/
+xrl_project_complete_FINAL/
+files-3/
+
+# Loose images / old files
+m1.jpeg
+m2.jpeg
+xrl.png
+photu.jpg
+High_Precision_X_Ray_Mask_Fabrication_and_X_Ray_Lithography_Feasibility_Study__Copy_-2/
+High_Precision_X_Ray_Mask_Fabrication_and_X_Ray_Lithography_Feasibility_Study__Copy_-2.pdf
+
+# Root-level old scripts (now in xrl/)
+aerial-image.py
+resist_response.py
+
+# Root-level fabrication files (now in fabrication/)
+CAM-20x20_v1_sitare-1.DXF
+CAM-20x20_v1_sitare-1.STEP
+CAM_manufacturing_proposal (1).pdf
 
 # Lecture slides
 1_Overview_merged.pdf
