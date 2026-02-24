@@ -346,13 +346,17 @@ def simulate_full_exposure(
     """
     model = ResistExposureModel(resist)
 
-    # Exposure time to reach target dose at unit intensity
+    # Exposure time calibrated so that dose_factor × D0 lands on the
+    # brightest pixel in the aerial image (open area through membrane).
+    # This matches real practice: "dose_factor" means how many times D0
+    # the open area receives, accounting for membrane absorption.
     target_dose = resist.sensitivity * dose_factor
     energy_per_photon_J = energy_kev * 1.602e-16
     mu = model.absorption_coefficient(energy_kev)
     f_absorbed = 1 - np.exp(-mu * resist.thickness)
     dose_per_second = REFERENCE_FLUX * energy_per_photon_J * f_absorbed * 1e3
-    exposure_time = target_dose / dose_per_second
+    peak_intensity = float(np.max(mask_intensity))
+    exposure_time = target_dose / (dose_per_second * max(peak_intensity, 1e-12))
 
     dose = model.absorbed_dose_profile(mask_intensity, energy_kev, exposure_time)
 

@@ -141,10 +141,11 @@ class AerialImageSimulator:
             )
             field_at_resist[i] = np.sum(field_at_mask * phase) * dx_mask
 
-        # Free-space propagation phase
+        # Free-space propagation phase (correct Huygens-Fresnel normalisation:
+        # divide by sqrt(j*lambda*z) so a unit plane wave maps to unit intensity)
         field_at_resist *= np.exp(
             1j * 2 * np.pi * self.gap / wavelength
-        ) / (1j * wavelength * self.gap)
+        ) / np.sqrt(1j * wavelength * self.gap)
 
         return np.abs(field_at_resist) ** 2
 
