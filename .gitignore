@@ -12,6 +12,7 @@ build/
 # Generated output
 output/
 /data/
+data/
 last_simulation.json
 
 # Old project directories (migrated into xrl/)
