@@ -100,6 +100,8 @@ MATERIALS: dict[str, MaterialProperties] = {
     'Si3N4': MaterialProperties('Silicon Nitride', 3.44, 11.2, 140.3),
     'SiC': MaterialProperties('Silicon Carbide', 3.21, 10, 40.1),
     'PMMA': MaterialProperties('PMMA', 1.18, 3.6, 100.1),
+    'Diamond': MaterialProperties('Diamond', 3.52, 6, 12.0),
+    'Polyimide': MaterialProperties('Polyimide', 1.43, 6.4, 13.2),
 }
 
 RESISTS: dict[str, ResistProperties] = {

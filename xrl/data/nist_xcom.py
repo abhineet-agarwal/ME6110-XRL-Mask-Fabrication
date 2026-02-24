@@ -269,6 +269,20 @@ _PMMA_COMPOUND = _make_compound([
     (0.3197, _O),
 ])
 
+# Diamond (pure carbon, density 3.52 g/cm³)
+_DIAMOND = _C   # identical μ/ρ to elemental carbon
+
+# Polyimide — PMDA-ODA (Kapton-type), (C₂₂H₁₀N₂O₅)ₙ, density 1.43 g/cm³
+#   MW = 22×12.011 + 10×1.008 + 2×14.007 + 5×15.999 = 382.33
+#   w(C) = 264.24/382.33 = 0.6910,  w(H) = 10.08/382.33 = 0.02636
+#   w(N) =  28.01/382.33 = 0.07326,  w(O) = 79.995/382.33 = 0.20924
+_POLYIMIDE = _make_compound([
+    (0.6910, _C),
+    (0.0264, _H),
+    (0.0733, _N),
+    (0.2093, _O),
+])
+
 # ---------------------------------------------------------------------------
 # Registry and cached interpolators
 # ---------------------------------------------------------------------------
@@ -286,6 +300,8 @@ _TABLES: dict[str, dict] = {
     'Silicon Nitride': _SI3N4,
     'Silicon Carbide': _SIC,
     'PMMA':            _PMMA_COMPOUND,
+    'Diamond':         _DIAMOND,
+    'Polyimide':       _POLYIMIDE,
     # Short aliases
     'Ta':    _TA,
     'W':     _W,
