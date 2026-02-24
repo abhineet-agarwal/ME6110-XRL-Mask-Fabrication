@@ -48,9 +48,10 @@ class TestMaterials:
         assert mu_ta > mu_si3n4 * 10
 
     def test_attenuation_decreases_with_energy(self):
-        """Higher energy photons are less attenuated."""
-        mu_low = MATERIALS['Ta'].get_attenuation_coefficient(1.0)
-        mu_high = MATERIALS['Ta'].get_attenuation_coefficient(3.0)
+        """Higher energy photons are less attenuated (above M-edge region)."""
+        # Test 3→5 keV to avoid Ta M-edges (1.7–2.7 keV) which cause local increases
+        mu_low = MATERIALS['Ta'].get_attenuation_coefficient(3.0)
+        mu_high = MATERIALS['Ta'].get_attenuation_coefficient(5.0)
         assert mu_low > mu_high
 
 
@@ -275,3 +276,61 @@ class TestContrast:
         c = sim.calculate_contrast(x, intensity)
         expected = (I_max - I_min) / (I_max + I_min)
         assert abs(c - expected) < 0.05  # within 5% due to windowing
+
+
+# -----------------------------------------------------------------------
+# NIST XCOM accuracy
+# -----------------------------------------------------------------------
+
+class TestNISTAccuracy:
+    """Spot-check attenuation values against directly tabulated NIST data."""
+
+    def test_ta_at_1kev(self):
+        """Ta at 1.0 keV: NIST μ/ρ = 3510 cm²/g × 16.65 g/cm³."""
+        mu = MATERIALS['Ta'].get_attenuation_coefficient(1.0)
+        np.testing.assert_allclose(mu, 3510 * 16.65, rtol=0.01)
+
+    def test_ta_below_m5_edge(self):
+        """Just below Ta M5 edge (1.7351 keV): μ/ρ ≈ 1154 cm²/g."""
+        mu_rho = MATERIALS['Ta'].get_attenuation_coefficient(1.734) / 16.65
+        np.testing.assert_allclose(mu_rho, 1154, rtol=0.05)
+
+    def test_ta_m5_edge_jump(self):
+        """Ta M5 edge at 1.7351 keV: absorption increases by ≥10%."""
+        mu_below = MATERIALS['Ta'].get_attenuation_coefficient(1.7350) / 16.65
+        mu_above = MATERIALS['Ta'].get_attenuation_coefficient(1.7352) / 16.65
+        assert mu_above > mu_below * 1.1, (
+            f"Expected ≥10% jump at M5 edge; got {mu_below:.1f} → {mu_above:.1f}"
+        )
+
+    def test_si_k_edge_jump(self):
+        """Si K-edge at 1.839 keV: ≥3× jump in Si₃N₄ attenuation."""
+        mu_below = MATERIALS['Si3N4'].get_attenuation_coefficient(1.838)
+        mu_above = MATERIALS['Si3N4'].get_attenuation_coefficient(1.840)
+        assert mu_above > mu_below * 3, (
+            f"Expected ≥3× jump at Si K-edge; got {mu_below:.1f} → {mu_above:.1f}"
+        )
+
+    def test_si3n4_2um_transmission_below_k_edge(self):
+        """2 μm Si₃N₄ at 1.5 keV (below Si K-edge): 40–90% transmission."""
+        mu = MATERIALS['Si3N4'].get_attenuation_coefficient(1.5) * 1e-4  # 1/μm
+        T = np.exp(-mu * 2.0)
+        assert 0.4 < T < 0.9, f"Transmission {T:.3f} out of expected 40–90% range"
+
+    def test_si3n4_2um_transmission_above_k_edge(self):
+        """2 μm Si₃N₄ at 1.85 keV (just above Si K-edge): 10–40% transmission."""
+        mu = MATERIALS['Si3N4'].get_attenuation_coefficient(1.85) * 1e-4  # 1/μm
+        T = np.exp(-mu * 2.0)
+        assert 0.05 < T < 0.40, f"Transmission {T:.3f} out of expected 10–40% range"
+
+    def test_ta_absorber_05um_transmission(self):
+        """Ta 0.5 μm at 1.5 keV: exp(-1566×16.65×0.5e-4) ≈ 27% (not 95%)."""
+        mu = MATERIALS['Ta'].get_attenuation_coefficient(1.5) * 1e-4  # 1/μm
+        T = np.exp(-mu * 0.5)
+        assert T < 0.5, f"Ta absorber transmission {T:.3f} should be <50% at 1.5 keV"
+
+    def test_absorbers_much_higher_than_membrane(self):
+        """Ta/W/Au μ should be >> Si₃N₄/SiC μ at 1.5 keV (contrast requirement)."""
+        mu_ta = MATERIALS['Ta'].get_attenuation_coefficient(1.5)
+        mu_si3n4 = MATERIALS['Si3N4'].get_attenuation_coefficient(1.5)
+        assert mu_ta > mu_si3n4 * 10

@@ -47,23 +47,34 @@ class ResistExposureModel:
     # -----------------------------------------------------------------
 
     def absorption_coefficient(self, energy_kev: float) -> float:
-        """Linear absorption coefficient for the resist.
+        """Linear absorption coefficient for the resist in 1/μm.
 
-        Empirical power-law fits for generic organic resists in the
-        XRL energy range.
+        For PMMA, uses NIST XCOM tabulated data (C₅H₈O₂ mixture rule).
+        For ZEP520A, SU-8, and HSQ — which have similar organic composition
+        but no dedicated NIST compound table — falls back to empirical
+        power-law fits.  Accuracy for non-PMMA resists is ±30% in the
+        1–5 keV range; treat results as indicative only.
 
         Args:
             energy_kev: Photon energy in keV.
 
         Returns:
-            Absorption coefficient mu in 1/um.
+            Absorption coefficient mu in 1/μm.
         """
-        if energy_kev < 1.0:
-            return 0.5 * energy_kev ** (-2.5)
-        elif energy_kev < 2.0:
-            return 0.3 * energy_kev ** (-2.3)
+        _NIST_RESISTS = {'PMMA'}
+        if self.resist.name in _NIST_RESISTS:
+            from .data.nist_xcom import get_mu_rho
+            mu_rho = get_mu_rho(self.resist.name, energy_kev)
+            # mu_rho cm²/g × density g/cm³ → μ in 1/cm; ×1e-4 → 1/μm
+            return mu_rho * self.resist.density * 1e-4
         else:
-            return 0.2 * energy_kev ** (-2.0)
+            # Fallback: empirical power-law for generic organics
+            if energy_kev < 1.0:
+                return 0.5 * energy_kev ** (-2.5)
+            elif energy_kev < 2.0:
+                return 0.3 * energy_kev ** (-2.3)
+            else:
+                return 0.2 * energy_kev ** (-2.0)
 
     # -----------------------------------------------------------------
     # Dose calculation

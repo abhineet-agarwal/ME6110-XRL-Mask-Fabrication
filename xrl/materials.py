@@ -30,10 +30,9 @@ class MaterialProperties:
     atomic_mass: float   # g/mol
 
     def get_attenuation_coefficient(self, energy_kev: float) -> float:
-        """Mass attenuation coefficient times density (linear attenuation).
+        """Linear attenuation coefficient μ in 1/cm.
 
-        Uses empirical power-law fits to NIST XCOM data for the
-        0.5 -- 5 keV range relevant to X-ray lithography.
+        Values from NIST XCOM tabulated data (log-log interpolation).
 
         Args:
             energy_kev: Photon energy in keV.
@@ -41,34 +40,9 @@ class MaterialProperties:
         Returns:
             Linear attenuation coefficient mu in 1/cm.
         """
-        if self.name == 'Tantalum':
-            if energy_kev < 1.0:
-                mu_over_rho = 3000 / energy_kev**2.8
-            elif energy_kev < 2.0:
-                mu_over_rho = 1500 / energy_kev**2.6
-            else:
-                mu_over_rho = 800 / energy_kev**2.4
-
-        elif self.name == 'Tungsten':
-            if energy_kev < 1.0:
-                mu_over_rho = 2800 / energy_kev**2.8
-            else:
-                mu_over_rho = 1200 / energy_kev**2.5
-
-        elif self.name == 'Gold':
-            if energy_kev < 1.0:
-                mu_over_rho = 2500 / energy_kev**2.7
-            else:
-                mu_over_rho = 1000 / energy_kev**2.4
-
-        elif 'Nitride' in self.name or 'Carbide' in self.name:
-            mu_over_rho = 20 / energy_kev**2.5
-
-        else:
-            # Generic organic (resist)
-            mu_over_rho = 10 / energy_kev**2.6
-
-        return mu_over_rho * self.density
+        from .data.nist_xcom import get_mu_rho
+        mu_rho = get_mu_rho(self.name, energy_kev)
+        return mu_rho * self.density
 
 
 @dataclass
